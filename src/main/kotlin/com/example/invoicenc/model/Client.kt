@@ -9,17 +9,14 @@ import javax.persistence.Table
 
 
 @Entity
-@Table(name="asistente")
+@Table(name="client")
 class Client {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(updatable = false)
     var id: Long? = null
-    var nombres :String?=null
-    var email :String?=null
-    var institucion :String?=null
-    var cargo:String?=null
-
-
+    var nui :String?=null
+    var fullname :String?=null
+    var adress :String?=null
 
 }

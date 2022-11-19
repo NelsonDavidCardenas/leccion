@@ -1,8 +1,10 @@
-CREATE TABLE IF NOT EXISTS client(
+CREATE TABLE IF NOT EXISTS invoice(
     id SERIAL,
-    nui VARCHAR (13) NOT NULL,
-    fullname VARCHAR (100),
-    adress VARCHAR (100),
+    code VARCHAR (100) NOT NULL,
+    create_at DATE NOT NULL,
+    total DECIMAL(8,2),
+    client_id INT NOT NULL,
     PRIMARY KEY (id),
-    Unique(nui)
+    UNIQUE(code),
+    FOREIGN KEY (client_id) REFERENCES client(id)
 );

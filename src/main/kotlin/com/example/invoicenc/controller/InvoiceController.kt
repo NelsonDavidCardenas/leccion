@@ -1,8 +1,8 @@
 package com.example.invoicenc.controller
 
 
-import com.example.invoicenc.model.Client
-import com.example.invoicenc.service.ClientService
+import com.example.invoicenc.model.Invoice
+import com.example.invoicenc.service.InvoiceService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -15,34 +15,34 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.RestController
 
 @RestController
-@RequestMapping("/client")
-class ClientController {
+@RequestMapping("/invoice")
+class InvoiceController {
     @Autowired
-    lateinit var clientService: ClientService
+    lateinit var invoiceService: InvoiceService
 
 
     @GetMapping
-    fun list():List<Client>{
-        return clientService.list()
+    fun list():List<Invoice>{
+        return invoiceService.list()
 
 
 
     }
 
     @PostMapping
-    fun save (@RequestBody client:Client):Client?{
-        return clientService.save(client)
+    fun save (@RequestBody invoice:Invoice):Invoice?{
+        return invoiceService.save(invoice)
     }
 
     @PutMapping
-    fun update (@RequestBody client:Client):ResponseEntity<Client>{
-        return ResponseEntity(clientService.update(client), HttpStatus.OK)
+    fun update (@RequestBody invoice:Invoice):ResponseEntity<Invoice>{
+        return ResponseEntity(invoiceService.update(invoice), HttpStatus.OK)
     }
 
     @PatchMapping
 
-    fun updateName (@RequestBody client:Client):ResponseEntity<Client>{
-        return ResponseEntity(clientService.updateName(client), HttpStatus.OK)
+    fun updateTotal (@RequestBody invoice:Invoice):ResponseEntity<Invoice>{
+        return ResponseEntity(invoiceService.updateTotal(invoice), HttpStatus.OK)
     }
 
 
