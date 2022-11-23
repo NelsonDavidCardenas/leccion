@@ -1,8 +1,8 @@
 package com.example.invoicenc.controller
 
 
-import com.example.invoicenc.model.Client
-import com.example.invoicenc.service.ClientService
+import com.example.invoicenc.model.Product
+import com.example.invoicenc.service.ProductService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
@@ -16,34 +16,34 @@ import org.springframework.web.bind.annotation.RestController
 import javax.validation.Valid
 
 @RestController
-@RequestMapping("/client")
-class ClientController {
+@RequestMapping("/product")
+class ProductController {
     @Autowired
-    lateinit var clientService: ClientService
+    lateinit var productService: ProductService
 
 
     @GetMapping
-    fun list():List<Client>{
-        return clientService.list()
+    fun list():List<Product>{
+        return productService.list()
 
 
 
     }
 
     @PostMapping
-    fun save (@RequestBody @Valid client:Client):Client?{
-        return clientService.save(client)
+    fun save (@RequestBody @Valid product:Product):Product?{
+        return productService.save(product)
     }
 
     @PutMapping
-    fun update (@RequestBody client:Client):ResponseEntity<Client>{
-        return ResponseEntity(clientService.update(client), HttpStatus.OK)
+    fun update (@RequestBody product:Product):ResponseEntity<Product>{
+        return ResponseEntity(productService.update(product), HttpStatus.OK)
     }
 
     @PatchMapping
 
-    fun updateName (@RequestBody client:Client):ResponseEntity<Client>{
-        return ResponseEntity(clientService.updateName(client), HttpStatus.OK)
+    fun updateStock (@RequestBody product:Product):ResponseEntity<Product>{
+        return ResponseEntity(productService.updateStock(product), HttpStatus.OK)
     }
 
 
