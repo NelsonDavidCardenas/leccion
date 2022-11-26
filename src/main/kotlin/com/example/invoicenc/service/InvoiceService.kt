@@ -23,6 +23,10 @@ class InvoiceService {
 
     }
 
+    fun listTotalMoreThan(total:Double?): List<Invoice>? {
+        return invoiceRepository.findTotalMoreThan(total)
+    }
+
     fun save(invoice: Invoice): Invoice {
         try{
             ///validar qe el cliente xiste
