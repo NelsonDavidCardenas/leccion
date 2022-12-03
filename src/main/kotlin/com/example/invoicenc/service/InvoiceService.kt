@@ -26,6 +26,10 @@ class InvoiceService {
     fun listTotalMoreThan(total:Double?): List<Invoice>? {
         return invoiceRepository.findTotalMoreThan(total)
     }
+//    fun updateFromDetails (invoiceId:Long?): Boolean? {
+//        invoiceRepository.updateFromDetails(invoiceId)
+//        return true
+//    }
 
     fun save(invoice: Invoice): Invoice {
         try{

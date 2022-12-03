@@ -25,20 +25,36 @@ class DetailService {
 
     }
 
+    fun calculateAndUpdateTotal (detail : Detail){
+        val totalCalculated = detailRepository.sumTotal(detail.invoiceId)
+        val invoiceResponse = invoiceRepository.findById(detail.invoiceId)
+        invoiceResponse.apply {
+           total=totalCalculated
+        }
+        invoiceRepository.save(invoiceResponse)
+    }
+
     fun save(detail:Detail):Detail{
         try{
-            invoiceRepository.findById(detail.invoiceId)
-                ?:throw Exception("El id ${detail.invoiceId} de factura no existe")
-            return detailRepository.save(detail)
-            productRepository.findById(detail.productId)
-                ?:throw Exception("El id ${detail.productId} de detalle no existe")
-            return detailRepository.save(detail)
+            val response= detailRepository.save(detail)
+            val responseProduct = productRepository.findById(response.productId)
+            responseProduct.apply {
+                stock = stock?.minus(detail.quantity!!)
+            }
+            productRepository.save(responseProduct)
+            calculateAndUpdateTotal(response)
+
+
+            return response
+
         }catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND, ex.message)
         }
 
 
     }
+
+
 
     fun update(detail: Detail):Detail {
         try {
