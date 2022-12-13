@@ -3,9 +3,14 @@ package com.example.invoicenc.service
 import com.example.invoicenc.model.Client
 import com.example.invoicenc.repository.ClientRepository
 import org.springframework.beans.factory.annotation.Autowired
+import org.springframework.data.domain.Example
+import org.springframework.data.domain.ExampleMatcher
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+
 
 
 @Service
@@ -47,6 +52,20 @@ class ClientService {
         catch (ex:Exception){
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
+    }
+
+    fun list (pageable: Pageable,client:Client):Page<Client>{
+        val matcher = ExampleMatcher.matching()
+            .withIgnoreNullValues()
+            .withMatcher(("fullname"), ExampleMatcher.GenericPropertyMatchers.contains().ignoreCase())
+        return clientRepository.findAll(Example.of(client, matcher), pageable)
+    }
+
+    fun delete (id: Long?):Boolean?{
+        clientRepository.findById(id) ?:
+        throw  Exception()
+        clientRepository.deleteById(id!!)
+        return true
     }
 
 

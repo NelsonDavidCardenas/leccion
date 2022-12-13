@@ -1,18 +1,14 @@
 package com.example.invoicenc.controller
 
 
+import com.example.invoicenc.model.Invoice
 import com.example.invoicenc.model.Product
 import com.example.invoicenc.service.ProductService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
-import org.springframework.web.bind.annotation.GetMapping
-import org.springframework.web.bind.annotation.PatchMapping
-import org.springframework.web.bind.annotation.PostMapping
-import org.springframework.web.bind.annotation.PutMapping
-import org.springframework.web.bind.annotation.RequestBody
-import org.springframework.web.bind.annotation.RequestMapping
-import org.springframework.web.bind.annotation.RestController
+import org.springframework.web.bind.annotation.*
+import org.springframework.web.server.ResponseStatusException
 import javax.validation.Valid
 
 @RestController
@@ -45,6 +41,15 @@ class ProductController {
     fun updateStock (@RequestBody product:Product):ResponseEntity<Product>{
         return ResponseEntity(productService.updateStock(product), HttpStatus.OK)
     }
+//delete
+    @DeleteMapping("/delete/{id}")
+    fun delete (@PathVariable("id") id: Long):Boolean?{
+        return productService.delete(id)
+    }
+
+    ///
+
+
 
 
 

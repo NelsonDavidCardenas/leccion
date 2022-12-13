@@ -1,5 +1,6 @@
 package com.example.invoicenc.service
 
+import com.example.invoicenc.model.Invoice
 import com.example.invoicenc.model.Product
 import com.example.invoicenc.repository.ProductRepository
 import org.springframework.beans.factory.annotation.Autowired
@@ -48,6 +49,19 @@ class ProductService {
             throw ResponseStatusException(HttpStatus.NOT_FOUND,ex.message)
         }
     }
+
+    fun delete (id: Long?):Boolean?{
+        productRepository.findById(id) ?:
+        throw  Exception()
+        productRepository.deleteById(id!!)
+        return true
+    }
+
+
+
+
+
+
 
 
 
